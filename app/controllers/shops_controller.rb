@@ -4,12 +4,12 @@ class ShopsController < ApplicationController
   # GET /shops
   def index
     @shops = Shop.all
-    render 'shops/index'
+    render :index
   end
 
   # GET /shops/1
   def show
-    render json: @shop
+    render :show
   end
 
   # POST /shops
@@ -17,7 +17,7 @@ class ShopsController < ApplicationController
     @shop = Shop.new(shop_params)
 
     if @shop.save
-      render json: @shop, status: :created, location: @shop
+      render :create, status: :created, location: @shop
     else
       render json: @shop.errors, status: :unprocessable_entity
     end
@@ -26,7 +26,7 @@ class ShopsController < ApplicationController
   # PATCH/PUT /shops/1
   def update
     if @shop.update(shop_params)
-      render json: @shop
+      render :update
     else
       render json: @shop.errors, status: :unprocessable_entity
     end
@@ -35,6 +35,7 @@ class ShopsController < ApplicationController
   # DELETE /shops/1
   def destroy
     @shop.destroy
+    render json: "Shop deleted."
   end
 
   private
