@@ -1,0 +1,2 @@
+class ShopType < ApplicationRecord
+end
