@@ -4,13 +4,12 @@ class ItemsController < ApplicationController
   # GET /items
   def index
     @items = Item.all
-
-    render json: @items
+    render :index
   end
 
   # GET /items/1
   def show
-    render json: @item
+    render :show
   end
 
   # POST /items
@@ -18,7 +17,7 @@ class ItemsController < ApplicationController
     @item = Item.new(item_params)
 
     if @item.save
-      render json: @item, status: :created, location: @item
+      render :create, status: :created, location: @item
     else
       render json: @item.errors, status: :unprocessable_entity
     end
@@ -27,7 +26,7 @@ class ItemsController < ApplicationController
   # PATCH/PUT /items/1
   def update
     if @item.update(item_params)
-      render json: @item
+      render :update
     else
       render json: @item.errors, status: :unprocessable_entity
     end
@@ -36,6 +35,7 @@ class ItemsController < ApplicationController
   # DELETE /items/1
   def destroy
     @item.destroy
+    render json: "Item deleted."
   end
 
   private

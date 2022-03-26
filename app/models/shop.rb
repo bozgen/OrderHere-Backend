@@ -3,9 +3,6 @@ class Shop < ApplicationRecord
     validates :shop_type_id, presence: true
     before_save :set_url
 
+    belongs_to :shop_type
     has_many :items
-
-    def shop_name
-        self.name.capitalize
-    end
 end
