@@ -6,5 +6,6 @@ class Shop < ApplicationRecord
     belongs_to :shop_type
     has_many :items
     has_many :tables
-    has_many :order_items, through: :tables;
+    has_many :order_items, through => :tables;
+    has_many :requests, through => :tables;
 end
