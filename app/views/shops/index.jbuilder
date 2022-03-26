@@ -5,5 +5,5 @@ json.array! @shops do |shop|
     json.shop_type shop.shop_type.name
 
     json.created_at shop.created_at
-    json.updated_at @shop.updated_at
+    json.updated_at shop.updated_at
 end
