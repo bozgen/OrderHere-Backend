@@ -1,24 +1,29 @@
 class TablesController < ApplicationController
   before_action :set_table, only: %i[ show update destroy ]
+  before_action :get_shop
 
   # GET /tables
   def index
-    @tables = Table.all
-
-    render json: @tables
+    @tables = @shop.tables
+    render :index
   end
 
   # GET /tables/1
   def show
-    render json: @table
+    @table = Table.find_by(shop_id: @shop.id, id: @table.id)
+    if @table
+      render :show
+    else
+      render json: "No such table on this shop!"
+    end
   end
 
   # POST /tables
   def create
-    @table = Table.new(table_params)
+    @table = @shop.tables.new(table_params)
 
     if @table.save
-      render json: @table, status: :created, location: @table
+      render json: @table, status: :created, location: @shop
     else
       render json: @table.errors, status: :unprocessable_entity
     end
@@ -27,7 +32,7 @@ class TablesController < ApplicationController
   # PATCH/PUT /tables/1
   def update
     if @table.update(table_params)
-      render json: @table
+      render :update
     else
       render json: @table.errors, status: :unprocessable_entity
     end
@@ -36,6 +41,7 @@ class TablesController < ApplicationController
   # DELETE /tables/1
   def destroy
     @table.destroy
+    render json: "Table deleted."
   end
 
   private
@@ -44,8 +50,12 @@ class TablesController < ApplicationController
       @table = Table.find(params[:id])
     end
 
+    def get_shop
+      @shop = Shop.find(params[:shop_id])
+    end
+
     # Only allow a list of trusted parameters through.
     def table_params
-      params.require(:table).permit(:name, :status, :owner-id)
+      params.require(:table).permit(:table_no, :status, :owner_id)
     end
 end
