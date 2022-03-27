@@ -7,6 +7,12 @@ class ShopsController < ApplicationController
     render :index
   end
 
+  # GET /shops/search?q=shop1
+  def search
+    @shops = Shop.where("name LIKE ?", "%"+ params[:q] + "%") 
+    render :index
+  end
+
   # GET /shops/1
   def show
     render :show
@@ -46,6 +52,6 @@ class ShopsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def shop_params
-      params.require(:shop).permit(:id, :shop_type_id, :name, :picture_url)
+      params.require(:shop).permit(:id, :shop_type_id, :name, :picture_url, :q)
     end
 end

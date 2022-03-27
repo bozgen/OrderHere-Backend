@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  get 'search', to: 'shops#search'
   resources :shops do
     resources :items
     resources :tables do
@@ -6,8 +7,7 @@ Rails.application.routes.draw do
       resources :order_items, only: [:index, :create, :update]
     end
   end
-
-  # static routes
+  
   get 'shops/:shop_id/tables/:table_id/order_items/current', to: 'order_items#current'
 
   
