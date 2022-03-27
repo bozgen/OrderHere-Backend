@@ -30,3 +30,5 @@
 /config/database.yml
 /config/cable.yml
 /config/credentials.yml.enc
+
+todo.md
