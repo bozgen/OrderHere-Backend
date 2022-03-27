@@ -35,12 +35,6 @@ class OrderItemsController < ApplicationController
     end
   end
 
-  # DELETE /order_items/1
-  def destroy
-    @order_item.destroy
-    render json: "Order item deleted."
-  end
-
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_order_item

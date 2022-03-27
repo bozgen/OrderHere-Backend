@@ -33,6 +33,10 @@ class TablesController < ApplicationController
   def update
     if @table.update(table_params)
       render :update
+      if @table.status == 0
+        @table.order_items.delete_all
+        @table.requests.delete_all
+      end
     else
       render json: @table.errors, status: :unprocessable_entity
     end

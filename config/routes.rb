@@ -3,7 +3,7 @@ Rails.application.routes.draw do
     resources :items
     resources :tables do
       resources :requests, only: [:index, :create, :destroy]
-      resources :order_items, only: [:index, :create, :update, :destroy]
+      resources :order_items, only: [:index, :create, :update]
     end
   end
 
