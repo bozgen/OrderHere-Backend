@@ -5,6 +5,7 @@ class CreateOrderItems < ActiveRecord::Migration[7.0]
       t.float :price
       t.integer :quantity
       t.string :owner_id
+      t.boolean :status
 
       t.belongs_to :shop, :table
 

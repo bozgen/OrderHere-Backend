@@ -9,6 +9,12 @@ class OrderItemsController < ApplicationController
     render :index
   end
 
+  # GET /order_items/current
+  def current
+    @order_items = @table.order_items.where(status: false)
+    render :index
+  end
+
   # POST /order_items
   def create
     @order_item = @table.order_items.new(order_item_params)
@@ -17,6 +23,15 @@ class OrderItemsController < ApplicationController
       render :create, status: :created, location: @shop
     else
       render json: @order_item.errors, status: :unprocessable_entity
+    end
+  end
+
+  # PATCH/PUT /order_items/1
+  def update
+    if @order_item.update(order_item_params)
+      render :update
+    else
+      render json: @shop.errors, status: :unprocessable_entity
     end
   end
 
@@ -42,6 +57,6 @@ class OrderItemsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def order_item_params
-      params.require(:order_item).permit(:name, :price, :quantity, :owner_id, :shop_id, :table_id)
+      params.require(:order_item).permit(:name, :price, :quantity, :owner_id, :shop_id, :table_id, :status)
     end
 end

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_03_26_205020) do
+ActiveRecord::Schema[7.0].define(version: 2022_03_27_155201) do
   create_table "item_types", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", null: false
@@ -34,6 +34,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_03_26_205020) do
     t.float "price"
     t.integer "quantity"
     t.string "owner_id"
+    t.boolean "status"
     t.bigint "shop_id"
     t.bigint "table_id"
     t.datetime "created_at", null: false

@@ -6,10 +6,12 @@ class Table < ApplicationRecord
     has_many :requests
     has_many :order_items
     
-    statuses = {
+    private
+
+    STATUSES = {
         available: 0,
         claimed: 1,
         reserved: 2
     }
-    
+    # STATUS[:reserved] => 2
 end
