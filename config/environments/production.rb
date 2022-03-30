@@ -1,6 +1,9 @@
 require "active_support/core_ext/integer/time"
 
 Rails.application.configure do
+  
+  HOST = ''
+
   # Settings specified here will take precedence over those in config/application.rb.
 
   # Code is not reloaded between requests.
@@ -56,6 +59,9 @@ Rails.application.configure do
   # config.active_job.queue_name_prefix = "OrderHere_Backend_production"
 
   config.action_mailer.perform_caching = false
+
+  # required for devise CHANGE FOR PRODUCTION
+  config.action_mailer.default_url_options = { host: HOST, port: 3000 }
 
   # Ignore bad email addresses and do not raise email delivery errors.
   # Set this to true and configure the email server for immediate delivery to raise delivery errors.

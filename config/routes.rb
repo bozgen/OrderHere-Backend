@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  devise_for :admins
   get 'search', to: 'shops#search'
   resources :shops do
     resources :items
