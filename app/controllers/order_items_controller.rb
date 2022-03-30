@@ -17,9 +17,19 @@ class OrderItemsController < ApplicationController
 
   # POST /order_items
   def create
-    @order_item = @table.order_items.new(order_item_params)
+    p = 0
+    @orders = []
 
-    if @order_item.save
+    order_item_params[:items].each do |item|
+      @order_item = @table.order_items.new(item)
+      if @order_item.save
+        p+=1
+        @orders << @order_item
+      else
+        break
+      end
+    end
+    if @order_item.save && order_item_params[:items].length == p
       render :create, status: :created, location: @shop
     else
       render json: @order_item.errors, status: :unprocessable_entity
@@ -31,7 +41,7 @@ class OrderItemsController < ApplicationController
     if @order_item.update(order_item_params)
       render :update
     else
-      render json: @shop.errors, status: :unprocessable_entity
+      render json: @order_item.errors, status: :unprocessable_entity
     end
   end
 
@@ -51,6 +61,6 @@ class OrderItemsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def order_item_params
-      params.require(:order_item).permit(:name, :price, :quantity, :owner_id, :shop_id, :table_id, :status)
+      params.permit(items: [:name, :price, :quantity, :owner_id, :shop_id, :table_id, :status])
     end
 end
