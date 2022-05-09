@@ -41,6 +41,19 @@ class TablesController < ApplicationController
       render json: @table.errors, status: :unprocessable_entity
     end
   end
+  
+  # claim
+  def claim
+    table = Table.where(:table_no => params[:table_no] && :shop_id => Shop.where(:name => params[:shop]))
+    if table.status == 0
+      if table.update
+        render :update
+      else
+        render json: table.errors, status: :unprocessable_entity
+      end
+    end
+  end
+
 
   # DELETE /tables/1
   def destroy
