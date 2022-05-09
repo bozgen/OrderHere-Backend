@@ -73,6 +73,6 @@ class TablesController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def table_params
-      params.require(:table).permit(:table_no, :status, :owner_id)
+      params.require(:table).permit(:table_no, :status, :owner_id, :id)
     end
 end
