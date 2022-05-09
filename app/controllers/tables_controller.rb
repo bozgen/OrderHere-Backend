@@ -1,6 +1,6 @@
 class TablesController < ApplicationController
   before_action :set_table, only: %i[ show update destroy ]
-  before_action :get_shop
+  before_action :get_shop, except: [:claim]
 
   # GET /tables
   def index
@@ -49,8 +49,10 @@ class TablesController < ApplicationController
       if @table.update
         render :update
       else
-        render json: "table is not available!"
+        render json: @table.errors, status: :unprocessable_entity
       end
+    else
+      render json: "table is not available!"
     end
   end
 
