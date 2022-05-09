@@ -44,13 +44,12 @@ class TablesController < ApplicationController
   
   # claim
   def claim
-    shopID = Shop.where(:name => params[:shop]).id
-    table = Table.where(:table_no => params[:table_no] && :shop_id => SHOPID)
+    table = Table.find(params[:id])
     if table.status == 0
       if table.update
         render :update
       else
-        render json: table.errors, status: :unprocessable_entity
+        render json: "table is not available!"
       end
     end
   end
