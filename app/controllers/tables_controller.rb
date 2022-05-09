@@ -44,7 +44,7 @@ class TablesController < ApplicationController
   
   # claim
   def claim
-    @table = Table.find(params[:id])
+    @table = Table.find_by(:id params[:id])
     if @table.status == 0
       if @table.update
         render :update
