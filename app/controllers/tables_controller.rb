@@ -44,9 +44,9 @@ class TablesController < ApplicationController
   
   # claim
   def claim
-    table = Table.find(params[:id])
-    if table.status == 0
-      if table.update
+    @table = Table.find(params[:id])
+    if @table.status == 0
+      if @table.update
         render :update
       else
         render json: "table is not available!"
