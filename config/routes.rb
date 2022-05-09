@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
   devise_for :admins
   get 'search', to: 'shops#search'
-  put 'claim', to: 'shops#claim'
+  put 'claim', to: 'tables#claim'
   resources :shops do
     resources :items
     resources :tables do
