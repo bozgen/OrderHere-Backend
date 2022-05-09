@@ -44,7 +44,8 @@ class TablesController < ApplicationController
   
   # claim
   def claim
-    table = Table.where(:table_no => params[:table_no] && :shop_id => Shop.where(:name => params[:shop]))
+    shopID = Shop.where(:name => params[:shop]).id
+    table = Table.where(:table_no => params[:table_no] && :shop_id => SHOPID)
     if table.status == 0
       if table.update
         render :update
