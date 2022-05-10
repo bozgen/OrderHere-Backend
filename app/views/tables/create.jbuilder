@@ -5,6 +5,7 @@ json.table do
     json.owner_id @table.owner_id
 
     json.shop @table.shop.name
+    json.shop_id @table.shop_id
 
     json.created_at @table.created_at
 end
