@@ -5,19 +5,23 @@ class OrderItemsController < ApplicationController
 
   # GET /order_items
   def index
-    @order_items = @table.order_items
-    render :index
+    if @table
+      @order_items = @table.order_items
+      render :index
+    end
   end
 
   # GET /order_items/current
   def current
-    @order_items = @table.order_items.where(status: false)
-    render :index
+    if @table
+      @order_items = @table.order_items.where(status: false)
+      render :index
+    end
   end
 
   # POST /order_items
   def create
-    if isTableClaimed
+    if @table && isTableClaimed 
       p = 0
       @orders = []
       create_order_item_params[:items].each do |item|
@@ -55,7 +59,7 @@ class OrderItemsController < ApplicationController
     end
 
     def get_table
-      @table = Table.find(params[:table_id])
+      @table = Table.find_by(id: params[:table_id], shop_id: @shop.id)
     end 
 
     def get_shop
