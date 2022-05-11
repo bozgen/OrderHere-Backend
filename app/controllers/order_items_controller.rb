@@ -63,12 +63,12 @@ class OrderItemsController < ApplicationController
     end
 
     def isTableClaimed 
-      return create_order_item_params[:owner_id] === @table.owner_id
+      return create_order_item_params[:items][:owner_id] === @table.owner_id
     end
 
     # Only allow a list of trusted parameters through.
     def create_order_item_params
-      params.permit(items: [:name, :price, :quantity, :owner_id, :shop_id, :table_id, :status], :owner_id)
+      params.permit(items: [:name, :price, :quantity, :owner_id, :shop_id, :table_id, :status])
     end
 
     def order_item_params
