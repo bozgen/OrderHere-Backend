@@ -68,7 +68,7 @@ class OrderItemsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def create_order_item_params
-      params.permit(items: [:name, :price, :quantity, :shop_id, :table_id, :status], :owner_id)
+      params.permit(items: [:name, :price, :quantity, :owner_id :shop_id, :table_id, :status], :owner_id)
     end
 
     def order_item_params
