@@ -11,7 +11,7 @@ class TablesController < ApplicationController
   # GET /tables/1
   def show
     @table = Table.find_by(shop_id: @shop.id, id: @table.id)
-    if @table
+    if @table && @table.shop_id == @shop.id
       render :show
     else
       render json: "No such table on this shop!"
