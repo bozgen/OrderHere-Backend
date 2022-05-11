@@ -1,7 +1,7 @@
 class OrderItemsController < ApplicationController
   before_action :set_order_item, only: %i[ show update destroy ]
   before_action :get_table
-  before_action :get_shop, only: [:create, :get_table]
+  before_action :get_shop, only: :create
 
   # GET /order_items
   def index
@@ -59,7 +59,7 @@ class OrderItemsController < ApplicationController
     end
 
     def get_table
-      @table = Table.find_by(id: params[:table_id], shop_id: @shop.id)
+      @table = Table.find_by(id: params[:table_id], shop_id: params[:shop_id])
     end 
 
     def get_shop
