@@ -17,22 +17,25 @@ class OrderItemsController < ApplicationController
 
   # POST /order_items
   def create
-    p = 0
-    @orders = []
-
-    create_order_item_params[:items].each do |item|
-      @order_item = @table.order_items.new(item)
-      if @order_item.save
-        p+=1
-        @orders << @order_item
-      else
-        break
+    if isTableClaimed
+      p = 0
+      @orders = []
+      create_order_item_params[:items].each do |item|
+        @order_item = @table.order_items.new(item)
+        if @order_item.save
+          p+=1
+          @orders << @order_item
+        else
+          break
+        end
       end
-    end
-    if @order_item.save && create_order_item_params[:items].length == p
-      render :create, status: :created, location: @shop
+      if @order_item.save && create_order_item_params[:items].length == p
+        render :create, status: :created, location: @shop
+      else
+        render json: @order_item.errors, status: :unprocessable_entity
+      end
     else
-      render json: @order_item.errors, status: :unprocessable_entity
+      render json: "You are not allowed to order for that table right now."
     end
   end
 
@@ -59,9 +62,13 @@ class OrderItemsController < ApplicationController
       @shop = Shop.find(params[:shop_id])
     end
 
+    def isTableClaimed 
+      return create_order_item_params[:owner_id] === @table.owner_id
+    end
+
     # Only allow a list of trusted parameters through.
     def create_order_item_params
-      params.permit(items: [:name, :price, :quantity, :owner_id, :shop_id, :table_id, :status])
+      params.permit(items: [:name, :price, :quantity, :shop_id, :table_id, :status], :owner_id)
     end
 
     def order_item_params
