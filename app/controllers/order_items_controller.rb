@@ -1,7 +1,7 @@
 class OrderItemsController < ApplicationController
   before_action :set_order_item, only: %i[ show update destroy ]
   before_action :get_table
-  before_action :get_shop, only: :create
+  before_action :get_shop, only: [:create, :get_table]
 
   # GET /order_items
   def index
