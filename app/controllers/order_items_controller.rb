@@ -29,7 +29,7 @@ class OrderItemsController < ApplicationController
         if @order_item.save
           @item = Item.find_by(id: item[:id])
           item[:quantity].times do
-            @item.decrement(:quantity)
+            @item.update(quantity: -1)
           end
           p+=1
           @orders << @order_item
