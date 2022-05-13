@@ -67,7 +67,7 @@ class OrderItemsController < ApplicationController
     end
 
     def isTableClaimed 
-      return create_order_item_params[:items][0].owner_id === @table.owner_id
+      return create_order_item_params[:items][0][:owner_id] === @table.owner_id
     end
 
     # Only allow a list of trusted parameters through.
