@@ -27,10 +27,10 @@ class OrderItemsController < ApplicationController
       create_order_item_params[:items].each do |item|
         @order_item = @table.order_items.new(item)
         if @order_item.save
-          @item = Item.find_by(id: item[:id])
-          item[:quantity].times do
-            @item.update(quantity: -1)
-          end
+          itemsRow = Item.find(item.id)
+          newQuantity = itemsRow.quantity - item.quantity
+          itemsRow.update_attribute(:quantity, newQuantity);
+
           p+=1
           @orders << @order_item
         else
