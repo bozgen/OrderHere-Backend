@@ -10,13 +10,16 @@ class RequestsController < ApplicationController
 
   # POST /requests
   def create
-    @request = @table.requests.new(request_params)
+    if params[:owner_id] === @table[:owner_id]
+      @request = @table.requests.new(request_params)
 
-    if @request.save
-      render :create, status: :created, location: @shop
-    else
-      render json: @request.errors, status: :unprocessable_entity
+      if @request.save
+        render :create, status: :created, location: @shop
+      else
+        render json: @request.errors, status: :unprocessable_entity
+      end
     end
+    
   end
 
   # DELETE /requests/1

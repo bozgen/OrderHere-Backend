@@ -27,6 +27,7 @@ class OrderItemsController < ApplicationController
       create_order_item_params[:items].each do |item|
         @order_item = @table.order_items.new(item)
         if @order_item.save
+          # decrease the quantity of the stock
           itemsRow = Item.find_by(name: item[:name])
           newQuantity = itemsRow[:quantity] - item[:quantity]
           itemsRow.update_attribute(:quantity, newQuantity);
