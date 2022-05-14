@@ -27,7 +27,7 @@ class OrderItemsController < ApplicationController
       create_order_item_params[:items].each do |item|
         @order_item = @table.order_items.new(item)
         if @order_item.save
-          itemsRow = Item.find(item[:id])
+          itemsRow = Item.find(create_order_item_params[:items][p][:id])
           newQuantity = itemsRow[:quantity] - item[:quantity]
           itemsRow.update_attribute(:quantity, newQuantity);
           render json: "item[:id] : #{item[:id]}"
