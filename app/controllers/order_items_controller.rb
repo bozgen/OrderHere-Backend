@@ -25,7 +25,7 @@ class OrderItemsController < ApplicationController
       p = 0
       @orders = []
       create_order_item_params[:items].each do |item|
-        itemsRow = Item.find(item[:id])
+        itemsRow = Item.find(item.id)
         @order_item = @table.order_items.new(item)
         if @order_item.save
           newQuantity = itemsRow[:quantity] - item[:quantity]
