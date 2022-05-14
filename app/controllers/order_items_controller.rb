@@ -28,7 +28,7 @@ class OrderItemsController < ApplicationController
         @order_item = @table.order_items.new(item)
         if @order_item.save
           itemsRow = Item.find(item[:id])
-          puts item[id], itemsRow
+          puts item[:id], itemsRow
           newQuantity = itemsRow[:quantity] - item[:quantity]
           itemsRow.update_attribute(:quantity, newQuantity);
 
