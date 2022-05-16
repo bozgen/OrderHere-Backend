@@ -1,17 +1,22 @@
 class User < ApplicationRecord
     tokenizable
 
-    validates :username,            presence: true, :unique => true
-    validates :email,               presence: true, :unique => true
+    after_initialize :default_values
+
+    validates :username,            presence: true, uniqueness: true
+    validates :email,               presence: true, uniqueness: true
     validates :encrypted_password,  presence: true
-    validates :role,                presence: true, :default => ROLES[:waiter]
-    #Ex:- :default =>''
+    validates :role,                presence: true
 
 
     private
 
+        def default_values
+            self.role ||= ROLES[:waiter]
+        end
+
         ROLES = {
-            waiter: 0,  # admin
-            owner: 1    # superadmin
+        waiter: 0,  # admin
+        owner: 1    # superadmin
         }
 end
