@@ -2,12 +2,11 @@ class User < ApplicationRecord
     tokenizable
     has_secure_password
 
-
     after_initialize :default_values
 
     validates :username,            presence: true, uniqueness: true
     validates :email,               presence: true, uniqueness: true
-    validates :password,     presence: true
+    validates :password_digest,     presence: true
 
     private
 
