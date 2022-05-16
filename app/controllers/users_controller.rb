@@ -27,9 +27,9 @@ class UsersController < ApplicationController
   def login
     @user = User.find_by(user_params)
     if @user
-      render json: "user found"
+      render json: "user found!"
     else
-      render json: "not found"
+      render json: "not found!"
     end
   end
 
