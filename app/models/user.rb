@@ -7,14 +7,10 @@ class User < ApplicationRecord
     validates :role,                presence: true, default: ROLES[:waiter]
 
 
-
-
-
     private
 
         ROLES = {
             waiter: 0,  # admin
             owner: 1    # superadmin
         }
-    end
 end
