@@ -4,8 +4,8 @@ class UsersController < ApplicationController
   # POST /users
   def create
     @user = User.new(user_params)
-    @user.add_token(:session, expires_at: 2.days.from_now)
     if @user.save
+      @user.add_token(:session, expires_at: 2.days.from_now)
       render :create, status: :created, location: @user
     else
       render json: @user.errors, status: :unprocessable_entity
