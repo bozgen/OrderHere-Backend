@@ -2,7 +2,7 @@ require "active_support/core_ext/integer/time"
 
 Rails.application.configure do
   
-  HOST = ''
+  HOST = 'https://orderhere.herokuapp.com'
 
   # Settings specified here will take precedence over those in config/application.rb.
 
