@@ -1,8 +1,5 @@
 Rails.application.routes.draw do
-  devise_for :users, controllers: { sessions: :sessions},
-                      path_names: { sign_in: :login}
-
-  resource :user, only: [:show, :update]
+  devise_for :users
 
   get 'search', to: 'shops#search'
 
