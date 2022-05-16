@@ -1,5 +1,10 @@
 Rails.application.routes.draw do
-  devise_for :users
+  devise_for :users,  controllers:{
+                      sessions:       'users/sessions',
+                      registrations:  'users/registrations'
+                      }
+
+  resources :sessions, only: [:create, :destroy]
 
   get 'search', to: 'shops#search'
 

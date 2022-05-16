@@ -1,6 +1,7 @@
 class ItemsController < ApplicationController
   before_action :set_item, only: %i[ show update destroy ]
   before_action :get_shop
+  before_action :authenticate_user!
 
   # GET /items
   def index
