@@ -1,5 +1,7 @@
 class User < ApplicationRecord
     tokenizable
+    has_secure_password
+
 
     after_initialize :default_values
 
