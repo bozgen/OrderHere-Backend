@@ -1,10 +1,5 @@
 Rails.application.routes.draw do
-  devise_for :users,  controllers:{
-                      sessions:       'sessions',
-                      registrations:  'registrations'
-                      }
-
-  resources :sessions, only: [:create, :destroy]
+  mount_devise_token_auth_for 'User', at: 'auth'
 
   get 'search', to: 'shops#search'
 

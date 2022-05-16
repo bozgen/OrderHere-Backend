@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_03_30_181428) do
+ActiveRecord::Schema[7.0].define(version: 2022_05_16_205821) do
   create_table "item_types", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", null: false
@@ -25,6 +25,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_03_30_181428) do
     t.bigint "item_type_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "quantity"
     t.index ["item_type_id"], name: "index_items_on_item_type_id"
     t.index ["shop_id"], name: "index_items_on_shop_id"
   end
