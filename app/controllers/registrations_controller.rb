@@ -1,6 +1,6 @@
 include ActionController::MimeResponds
 
-class Users::RegistrationsController < Devise::RegistrationsController
+class RegistrationsController < Devise::RegistrationsController
     
     respond_to :json
     private

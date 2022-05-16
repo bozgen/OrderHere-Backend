@@ -1,5 +1,5 @@
 include ActionController::MimeResponds
-class Users::SessionsController < Devise::SessionsController
+class SessionsController < Devise::SessionsController
     
     respond_to :json
     private
