@@ -6,4 +6,8 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
   include DeviseTokenAuth::Concerns::User
+
+  validates :firstname, presence: true
+  validates :lastname, presence: true
+  validates :username, presence: true, uniqueness: true
 end
