@@ -22,6 +22,8 @@ class ItemsController < ApplicationController
   # POST /items
   def create
     @item = @shop.items.new(item_params)
+    authorize(@item)
+
 
     if @item.save
       render :create, status: :created, location: @shop
@@ -32,6 +34,7 @@ class ItemsController < ApplicationController
 
   # PATCH/PUT /items/1
   def update
+    authorize(@item)
     if @item.update(item_params)
       render :update
     else
@@ -41,6 +44,7 @@ class ItemsController < ApplicationController
 
   # DELETE /items/1
   def destroy
+    authorize(@item)
     @item.destroy
     render json: "Item deleted."
   end
