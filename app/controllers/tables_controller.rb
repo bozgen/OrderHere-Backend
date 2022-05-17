@@ -31,11 +31,23 @@ class TablesController < ApplicationController
 
   # PATCH/PUT /tables/1
   def update
+    if @table.status == 0
+
+    end
     if @table.update(table_params)
-      render :update
       if @table.status == 0
-        @table.order_items.delete_all
-        @table.requests.delete_all
+        begin
+          authorize(@table)
+          @table.order_items.delete_all
+          @table.requests.delete_all
+          @table.update(owner_id: "")
+          render :update
+        rescue
+          @message = "You are not authorized!"
+          render json: {message: @message, status: 401}
+        end
+      else
+        render :update
       end
     else
       render json: @table.errors, status: :unprocessable_entity
