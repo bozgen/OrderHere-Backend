@@ -7,6 +7,9 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :validatable
   include DeviseTokenAuth::Concerns::User
 
+  enum role: %i[admin superadmin]
+
+
   validates :firstname, presence: true
   validates :lastname, presence: true
   validates :username, presence: true, uniqueness: true
