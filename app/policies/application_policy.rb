@@ -7,7 +7,6 @@ class ApplicationPolicy
     @user = user
     @record = record
     @role_result = role_result
-    
   end
 
   def index?
