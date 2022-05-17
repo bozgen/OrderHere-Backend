@@ -15,7 +15,8 @@ class ItemsController < ApplicationController
     if @item
       render :show
     else
-      render json: "No such item on this shop!"
+      @message = "The item or the shop is not found!"
+      render json: {message: @message, status: 404}
     end
   end
 
@@ -34,19 +35,33 @@ class ItemsController < ApplicationController
 
   # PATCH/PUT /items/1
   def update
-    authorize(@item)
-    if @item.update(item_params)
-      render :update
-    else
-      render json: @item.errors, status: :unprocessable_entity
+    @item = Item.find_by(shop_id: @shop.id, id: @item.id)
+    @item && authorize(@item)
+    begin
+      if @item.update(item_params)
+        render :update
+      else
+        render json: @item.errors, status: :unprocessable_entity
+      end
+    rescue
+      @message = "The item or the shop is not found!";
+      render json: {message: @message, status: 404}
     end
   end
 
   # DELETE /items/1
   def destroy
-    authorize(@item)
-    @item.destroy
-    render json: "Item deleted."
+    @item = Item.find_by(shop_id: @shop.id, id: @item.id)
+    @item && authorize(@item)
+    begin
+      @item.destroy
+      render json: "Item deleted."
+    rescue => exception
+      @message = "The item or the shop is not found!"
+      render json: {message: @message, status: 404}
+    end
+    
+    
   end
 
   private
