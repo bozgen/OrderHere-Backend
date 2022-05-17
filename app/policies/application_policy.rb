@@ -7,18 +7,19 @@ class ApplicationPolicy
     @user = user
     @record = record
     @role_result = role_result
+    
   end
 
   def index?
-    role_result
+    @user.shop.id === @record.shop_id && role_result
   end
 
   def show?
-    role_result
+    @user.shop.id === @record.shop_id && role_result
   end
 
   def create?
-    role_result
+    @user.shop.id === @record.shop_id && role_result
   end
 
   def new?
@@ -26,7 +27,7 @@ class ApplicationPolicy
   end
 
   def update?
-    role_result
+    @user.shop.id === @record.shop_id && role_result
   end
 
   def edit?
@@ -34,7 +35,7 @@ class ApplicationPolicy
   end
 
   def destroy?
-    role_result
+    @user.shop.id === @record.shop_id && role_result
   end
 
   class Scope
