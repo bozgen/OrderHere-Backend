@@ -3,7 +3,7 @@ class OrderItemsController < ApplicationController
   before_action :get_table
   before_action :get_shop, only: :create
 
-  # GET /order_items
+  # GET /shops/:shop_id/tables/:table_id/order_items
   def index
     if @table
       @order_items = @table.order_items
@@ -11,12 +11,18 @@ class OrderItemsController < ApplicationController
     end
   end
 
-  # GET /order_items/current
+  # GET /shops/:shop_id/tables/:table_id/order_items/current
   def current
     if @table
       @order_items = @table.order_items.where(status: false)
       render :index
     end
+  end
+  
+  # GET /shops/:shop_id/order_items
+  def current_all
+    @order_items = OrderItem.where(shop_id: params[:shop_id], status: false)
+    render :current_all
   end
 
   # POST /order_items
