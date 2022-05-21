@@ -1,7 +1,8 @@
 class OrderItemsController < ApplicationController
   before_action :set_order_item, only: %i[ show update destroy ]
   before_action :get_table
-  before_action :get_shop, only: :create
+  before_action :get_shop, only: [:create, :update]
+  before_action :authenticate_user!, only: [:current_all, :complete]
 
   # GET /shops/:shop_id/tables/:table_id/order_items
   def index
@@ -53,12 +54,23 @@ class OrderItemsController < ApplicationController
     end
   end
 
-  # PATCH/PUT /order_items/1
+  # PATCH/PUT
   def update
-    if @order_item.update(order_item_params)
+    @order_items = OrderItem.where(table_id: params[:table_id], shop_id: params[:shop_id], status: 0)
+    p = 0
+    last_item = nil
+    @order_items.each do |item|
+      last_item = item
+      if item.update(status: 1)
+      p+=1
+      else
+        break
+      end
+    end
+    if p===@order_items.length
       render :update
     else
-      render json: @order_item.errors, status: :unprocessable_entity
+      render json: last_item.errors, status: :unprocessable_entity
     end
   end
 

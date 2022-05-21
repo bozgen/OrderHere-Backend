@@ -7,13 +7,14 @@ Rails.application.routes.draw do
     resources :items
     resources :tables do
       resources :requests, only: [:index, :create, :destroy]
-      resources :order_items, only: [:index, :create, :update]
+      resources :order_items, only: [:index, :create]
     end
   end
   
   get 'shops/:shop_id/tables/:table_id/order_items/current', to: 'order_items#current'
   get 'shops/:shop_id/order_items', to: 'order_items#current_all'
-
+  put 'shops/:shop_id/tables/:table_id/order_items', to: 'order_items#update'
+  
   
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
