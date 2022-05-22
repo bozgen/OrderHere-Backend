@@ -1,10 +1,17 @@
 class RequestsController < ApplicationController
   before_action :set_request, only: %i[ show update destroy ]
-  before_action :get_table
+  before_action :get_table, except: :index_by_shop
+  before_action :authenticate_user!, except: :create
+  before_action :get_shop, only: :index_by_shop
 
   # GET /requests
   def index
     @requests = @table.requests
+    render :index
+  end
+
+  def index_by_shop
+    @requests = @shop.requests
     render :index
   end
 

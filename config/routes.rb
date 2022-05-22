@@ -14,6 +14,7 @@ Rails.application.routes.draw do
   get 'shops/:shop_id/tables/:table_id/order_items/current', to: 'order_items#current'
   get 'shops/:shop_id/order_items', to: 'order_items#current_all'
   put 'shops/:shop_id/tables/:table_id/order_items', to: 'order_items#update'
+  get 'shops/:shop_id/requests', to: 'requests#index_by_shop'
   
   
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
