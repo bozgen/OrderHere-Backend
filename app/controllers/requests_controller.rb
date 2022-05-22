@@ -1,6 +1,6 @@
 class RequestsController < ApplicationController
   before_action :set_request, only: %i[ show update destroy ]
-  before_action :get_table, except: :index_by_shop
+  before_action :get_table, except: [:index_by_shop, :destroy]
   before_action :authenticate_user!, except: :create
   before_action :get_shop, only: :index_by_shop
 
@@ -38,7 +38,7 @@ class RequestsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_request
-      @request = Request.find(params[:id])
+      @request = Request.find_by(shop_id: params[:shop_id], id: params[:id])
     end
 
     def get_table
