@@ -10,15 +10,15 @@ class ApplicationPolicy
   end
 
   def index?
-    @user.shop.id === @record.shop_id && role_result
+    @user && ((@user.shop.id === @record.shop_id) && role_result)
   end
 
   def show?
-    @user.shop.id === @record.shop_id && role_result
+    @user && ((@user.shop.id === @record.shop_id) && role_result)
   end
 
   def create?
-    @user.shop.id === @record.shop_id && role_result
+    @user && ((@user.shop.id === @record.shop_id) && role_result)
   end
 
   def new?
@@ -26,7 +26,7 @@ class ApplicationPolicy
   end
 
   def update?
-    @user.shop.id === @record.shop_id && role_result
+    @user && ((@user.shop.id === @record.shop_id) && role_result)
   end
 
   def edit?
@@ -34,7 +34,7 @@ class ApplicationPolicy
   end
 
   def destroy?
-    @user.shop.id === @record.shop_id && role_result
+    @user && ((@user.shop.id === @record.shop_id) && role_result)
   end
 
   class Scope

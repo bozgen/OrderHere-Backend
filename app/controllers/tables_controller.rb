@@ -12,9 +12,11 @@ class TablesController < ApplicationController
   def show
     @table = Table.find_by(shop_id: @shop.id, id: @table.id)
     if @table && @table.shop_id == @shop.id
+      @order_items = @table.order_items
+      @requests = @table.requests
       render :show
     else
-      render json: "No such table on this shop!"
+      render json: "No such table on this shop!", status: 404
     end
   end
 
@@ -31,26 +33,20 @@ class TablesController < ApplicationController
 
   # PATCH/PUT /tables/1
   def update
-    if @table.status == 0
-
-    end
-    if @table.update(table_params)
-      if @table.status == 0
-        begin
-          authorize(@table)
-          @table.order_items.delete_all
-          @table.requests.delete_all
-          @table.update(owner_id: "")
-          render :update
-        rescue
-          @message = "You are not authorized!"
-          render json: {message: @message, status: 401}
-        end
-      else
+    if @table.status != 0
+      authorize(@table)
+      if @table.update(table_params)
+        @table.order_items.delete_all
+        @table.requests.delete_all
+        @table.update(owner_id: "")
         render :update
       end
     else
-      render json: @table.errors, status: :unprocessable_entity
+      if(@table.update(status: params[:status], owner_id: params[:owner_id]))
+        render :update
+      else
+        render json: @table.errors, status: :unprocessable_entity
+      end
     end
   end
 
@@ -63,7 +59,7 @@ class TablesController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_table
-      @table = Table.find(params[:id])
+      @table = Table.find_by(shop_id: params[:shop_id], id: params[:id])
     end
 
     def get_shop
