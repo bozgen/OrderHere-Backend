@@ -2,6 +2,7 @@ class ItemsController < ApplicationController
   before_action :set_item, only: %i[ show update destroy ]
   before_action :get_shop
   before_action :authenticate_user!, except: [:index, :show, :search]
+  before_save :name_to_lowercase, only: :create
 
   # GET /items
   def index

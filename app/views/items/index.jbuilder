@@ -1,12 +1,12 @@
 json.array! @items do |item|
     json.id item.id
-    json.name item.name
-    json.description item.description
+    json.name item.name.titleize
+    json.description item.description.capitalize
     json.price item.price
     json.quantity item.quantity
 
     json.shop_id item.shop_id
-    json.shop item.shop.name
+    json.shop item.shop.name.titleize
     json.item_type_id item.item_type.id
     json.item_type item.item_type.name
 
