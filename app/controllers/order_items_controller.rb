@@ -77,10 +77,7 @@ class OrderItemsController < ApplicationController
   # DELETE /requests/1
   def destroy
     @order_items = OrderItem.where(table_id: params[:table_id], shop_id: params[:shop_id], status: 0)
-    @order_items.each do |item|
-      item.destroy
-      p+=1
-    end
+    @order_items.destroy_all
     @message = "Order was canceled."
     render json: {message: @message, status: 200}
   end
