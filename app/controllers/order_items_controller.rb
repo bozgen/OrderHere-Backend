@@ -74,6 +74,17 @@ class OrderItemsController < ApplicationController
     end
   end
 
+  # DELETE /requests/1
+  def destroy
+    @order_items = OrderItem.where(table_id: params[:table_id], shop_id: params[:shop_id], status: 0)
+    @order_items.each do |item|
+      item.destroy
+      p+=1
+    end
+    @message = "Order was canceled."
+    render json: {message: @message, status: 200}
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_order_item
