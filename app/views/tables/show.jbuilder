@@ -17,7 +17,7 @@ json.table do
     json.requests do
         json.array! @requests do |request|
             json.id request.id
-            json.table_no request.table_no
+            json.table_no @table.table_no
             json.purpose request.purpose
         end
     end
