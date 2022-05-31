@@ -1,7 +1,7 @@
 class OrderItemsController < ApplicationController
   before_action :set_order_item, only: %i[ show update destroy ]
   before_action :get_table
-  before_action :get_shop, only: [:create, :update]
+  before_action :get_shop, only: [:create, :update, :current_all]
   before_action :authenticate_user!, only: [:current_all, :complete]
 
   # GET /shops/:shop_id/tables/:table_id/order_items
@@ -22,7 +22,7 @@ class OrderItemsController < ApplicationController
   
   # GET /shops/:shop_id/order_items
   def current_all
-    @order_items = OrderItem.where(shop_id: params[:shop_id], status: false)
+    @order_items = @shop.order_items.where(status: false)
     render :current_all
   end
 
