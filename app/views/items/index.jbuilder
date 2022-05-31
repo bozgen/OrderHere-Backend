@@ -1,7 +1,7 @@
 json.array! @items do |item|
     json.id item.id
     json.name item.name.titleize
-    json.description item.description.capitalize
+    json.description item.description
     json.price item.price
     json.quantity item.quantity
 
