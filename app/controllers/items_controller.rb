@@ -9,6 +9,12 @@ class ItemsController < ApplicationController
     render :index
   end
 
+  # GET /shops/1/search?q=shop1
+  def search
+    @items = @shop.items.where("name LIKE ?", "%"+ params[:q] + "%");
+    render :index
+  end
+
   # GET /items/1
   def show
     @item = Item.find_by(shop_id: @shop.id, id: @item.id)

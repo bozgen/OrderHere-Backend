@@ -1,7 +1,8 @@
 Rails.application.routes.draw do
   mount_devise_token_auth_for 'User', at: 'auth'
 
-  get 'search', to: 'shops#search'
+  get 'shops/search', to: 'shops#search'
+  get 'shops/:shop_id/items/search', to: 'items#search'
 
   resources :shops do
     resources :items
